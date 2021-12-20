@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wellington.springmongo.domain.User;
+import com.wellington.springmongo.dto.UserDTO;
 import com.wellington.springmongo.repository.IUserRepository;
 import com.wellington.springmongo.service.exception.ObjectNotFoundException;
 
@@ -27,15 +28,21 @@ public class UserService {
 		}
 		return user;
 	}
+	
+	public User insert(User obj) {
+		return repository.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO obj) {
+		return new User(obj.getId(), obj.getName(), obj.getEmail());
+	}
 	/*  outro modo de implementar o findById, desta vez retornando um UserDTO
 	public Optional<UserDTO> findById2(String id) {
 		Optional<User> user = repository.findById(id);
 		if(user == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado");
 		}
-		return user.map(x -> new UserDTO(x));
-		
+		return user.map(x -> new UserDTO(x));	
 	}*/
-	
 }
 
