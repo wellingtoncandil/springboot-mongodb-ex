@@ -36,6 +36,12 @@ public class UserService {
 	public User fromDTO(UserDTO obj) {
 		return new User(obj.getId(), obj.getName(), obj.getEmail());
 	}
+	
+	public void delete(String id) {
+		findById(id);
+		repository.deleteById(id);
+	}
+	
 	/*  outro modo de implementar o findById, desta vez retornando um UserDTO
 	public Optional<UserDTO> findById2(String id) {
 		Optional<User> user = repository.findById(id);
