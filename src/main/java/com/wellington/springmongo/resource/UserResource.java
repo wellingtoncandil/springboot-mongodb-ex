@@ -1,26 +1,26 @@
-package com.wellington.springmongo.resources;
+package com.wellington.springmongo.resource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellington.springmongo.domain.User;
+import com.wellington.springmongo.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserResource {
 
+	@Autowired
+	UserService service;
+	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
-		User maria = new User("1", "Maria Brown", "maria@gmail.com");
-		User joao = new User("2", "João Brown", "joao@gmail.com");
-		List<User> list = new ArrayList<>();
-		list.addAll(Arrays.asList(maria, joao));
+		List<User> list = service.findAll();
 		
 		return ResponseEntity.ok(list);
 	}
